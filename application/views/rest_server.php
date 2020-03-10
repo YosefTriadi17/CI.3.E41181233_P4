@@ -118,51 +118,51 @@
 <script src="https://code.jquery.com/jquery-1.12.0.js"></script>
 
 <script>
-    // buat nama aplikasi
+    // Create an 'App' namespace
     var App = App || {};
 
-    // menggunakan LIFE untuk melampirkan variabel pribadi
+    // Basic rest module using an IIFE as a way of enclosing private variables
     App.rest = (function restModule(window) {
-        // Bidang
+        // Fields
         var _alert = window.alert;
         var _JSON = window.JSON;
 
-        // Cache jQuery selector
+        // Cache the jQuery selector
         var _$ajax = null;
 
-        // Cache jQuery object
+        // Cache the jQuery object
         var $ = null;
 
         // Methods (private)
 
         /**
-         * panggil ajax sukses
+         * Called on Ajax done
          *
-         * @return {tidak ditemukan}
+         * @return {undefined}
          */
         function _ajaxDone(data) {
-            // Parameter 'data' larik objek yang dapat diulangi
+            // The 'data' parameter is an array of objects that can be iterated over
             _alert(_JSON.stringify(data, null, 2));
         }
 
         /**
-         * panggil ajax gagal
+         * Called on Ajax fail
          *
-         * @return {tidak ditemukan}
+         * @return {undefined}
          */
         function _ajaxFail() {
             _alert('Oh no! A problem with the Ajax request!');
         }
 
         /**
-         * request ajax
+         * On Ajax request
          *
-         * @param {jQuery} $element yang diseleksi
-         * @return {tidak ditemukan}
+         * @param {jQuery} $element Current element selected
+         * @return {undefined}
          */
         function _ajaxEvent($element) {
             $.ajax({
-                    // URL dari link yang di klik
+                    // URL from the link that was 'clicked' on
                     url: $element.attr('href')
                 })
                 .done(_ajaxDone)
@@ -172,14 +172,14 @@
         /**
          * Bind events
          *
-         * @return {tidak ditemukan}
+         * @return {undefined}
          */
         function _bindEvents() {
-            // saat nama di klik
+            // Namespace the 'click' event
             _$ajax.on('click.app.rest.module', function (event) {
                 event.preventDefault();
 
-                // berikan this ke fungsi ajax
+                // Pass this to the Ajax event function
                 _ajaxEvent($(this));
             });
         }
@@ -187,7 +187,7 @@
         /**
          * Cache the DOM node(s)
          *
-         * @return {tidak ditemukan}
+         * @return {undefined}
          */
         function _cacheDom() {
             _$ajax = $('#ajax');
@@ -196,10 +196,10 @@
         // Public API
         return {
             /**
-             * Inisialisasi modul
+             * Initialise the following module
              *
              * @param {object} jQuery Reference to jQuery
-             * @return {tidak ditemukan}
+             * @return {undefined}
              */
             init: function init(jQuery) {
                 $ = jQuery;
@@ -211,9 +211,9 @@
         };
     }(window));
 
-    // DOM siap
+    // DOM ready event
     $(function domReady($) {
-        // Inisialisasi app module
+        // Initialise the App module
         App.rest.init($);
     });
 </script>
